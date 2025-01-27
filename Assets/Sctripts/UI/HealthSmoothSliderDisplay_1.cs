@@ -17,6 +17,7 @@ public class HealthSmoothSliderDisplay : MonoBehaviour
         _smoothSlider.value = maximumLifeForce;
         _waitForSeconds = new WaitForSeconds(_delayTime);
     }
+
     public void StartSmoothSlide(int lifeForce)
     {
         if (_coroutine != null)

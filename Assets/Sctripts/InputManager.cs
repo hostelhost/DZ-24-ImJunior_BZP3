@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
     private const string Horizontal = "Horizontal";
     private const string Vertical = "Vertical";
+
+    public event Action KeyHasPressed;
 
     public float InputHorizontal { get; private set; }
     public float InputVertical { get; private set; }
@@ -12,5 +15,8 @@ public class InputManager : MonoBehaviour
     {
         InputHorizontal = Input.GetAxisRaw(Horizontal);
         InputVertical = Input.GetAxisRaw(Vertical);
+
+        if (Input.GetKeyDown(KeyCode.E))
+            KeyHasPressed?.Invoke();
     }
 }

@@ -12,18 +12,21 @@ public class Vampirism : MonoBehaviour
     [SerializeField] private int _pauseTimeBetweenBars = 1;
     [SerializeField] private int _powerAbility = 5;
 
-    private WaitForSeconds _waitForSecondsWorkTimeAbility; //¬озможно удалить за ненадобностью.
-    private WaitForSeconds _waitForSecondsReloadTimeAbility;
-    private WaitForSeconds _waitForSecondsPauseTimeBetweenBars;
+    //private WaitForSeconds _waitForSecondsWorkTimeAbility; //¬озможно удалить за ненадобностью.
+    //private WaitForSeconds _waitForSecondsReloadTimeAbility;
+    //private WaitForSeconds _waitForSecondsPauseTimeBetweenBars;
 
-    private Coroutine _ability;
+    private Coroutine _abilityProcess;
+    private Coroutine _reload;
 
-    private void Start()
-    {
-        _waitForSecondsWorkTimeAbility = new WaitForSeconds(_workTimeAbility); //¬озможно удалить за ненадобностью.
-        _waitForSecondsReloadTimeAbility = new WaitForSeconds(_reloadTimeAbility);
-        _waitForSecondsPauseTimeBetweenBars = new WaitForSeconds(_pauseTimeBetweenBars);
-    }
+    private bool _isReady = true;
+
+    //private void Start()
+    //{
+    //    _waitForSecondsWorkTimeAbility = new WaitForSeconds(_workTimeAbility); //¬озможно удалить за ненадобностью.
+    //    _waitForSecondsReloadTimeAbility = new WaitForSeconds(_reloadTimeAbility);
+    //    _waitForSecondsPauseTimeBetweenBars = new WaitForSeconds(_pauseTimeBetweenBars);
+    //}
 
     private void OnEnable()
     {
@@ -56,8 +59,11 @@ public class Vampirism : MonoBehaviour
 
     private IEnumerator StartVampirise()
     {
-        for (float t = 0; t <= _workTimeAbility; t += Time.deltaTime) //¬рем€ –аботы способности 6 сек. даже если врем€ между тактами 0.02 сек работает способность не менее 6 сек!!!
-                                                                      //проверить это!
+        _isReady = false;
+
+        int barsCount = _workTimeAbility / _pauseTimeBetweenBars; //считаем сколько раз за 6 секунд
+
+        for (int i = 0; i < barsCount; i++) 
         {
             ITakingDamage enemy = _detector.IdentifyNearestTarget();
 
@@ -67,18 +73,38 @@ public class Vampirism : MonoBehaviour
                 _player.TryToAcceptLifeForce(_powerAbility);
             }
 
-            yield return _waitForSecondsPauseTimeBetweenBars; //1 sek
+            yield return new WaitForSeconds(_pauseTimeBetweenBars);
         }
 
-        yield return _waitForSecondsReloadTimeAbility;
+        StartCoroutine(Reload());
+        StopVampirism();
+    }
+
+    private IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(_reloadTimeAbility);
+
+        _isReady = true;
+
+        yield break;
+    }
+
+    private void StopVampirism()
+    {
+        if (_abilityProcess == null) return;
+
+        StopCoroutine(_abilityProcess);
+        _abilityProcess = null;
     }
 
     private void TryApplyAbility()
     {
-        if (_ability == null)
+        Debug.Log("TryApplyAbility");
+
+        if (_abilityProcess == null && _isReady)
         {
             //јктивировать внешний фон
-            _ability = StartCoroutine(StartVampirise());
+            _abilityProcess = StartCoroutine(StartVampirise());
         }
     }
 }

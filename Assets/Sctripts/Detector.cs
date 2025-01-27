@@ -26,7 +26,7 @@ public class Detector : MonoBehaviour
 
     public ITakingDamage IdentifyNearestTarget()
     {
-        Enemy enemy = _enemys[0]; //ѕроверить если список пуст. вовзвращаетс€ ли кладетс€ ли в enemy null.
+        Enemy enemy = _enemys[0]; //добавить проверку на пустоту списка чтобы эксепшен не вылетал
 
         for (int i = 1; i < _enemys.Count; i++)
         {

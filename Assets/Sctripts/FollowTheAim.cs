@@ -6,14 +6,11 @@ public class FollowTheAim : MonoBehaviour
 
     private void Update()
     {
-        if (_aim == null)
-        {
-            Destroy(gameObject);
-            return;
-        } 
-
         if (transform.position != _aim.position)       
-            NextPosition(); 
+            NextPosition();
+
+        if (_aim == null)       
+            Destroy(gameObject);      
     }
 
     private void NextPosition()

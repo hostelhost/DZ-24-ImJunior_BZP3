@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
+using System.Threading;
 using UnityEngine;
 
 public class Vampirism : MonoBehaviour
 {
+    [SerializeField] private DetectorZoneDisplay _detectorZone;
     [SerializeField] private Player _player;
     [SerializeField] private Detector _detector;
     [SerializeField] private InputManager _inputManager;
@@ -12,21 +15,22 @@ public class Vampirism : MonoBehaviour
     [SerializeField] private int _pauseTimeBetweenBars = 1;
     [SerializeField] private int _powerAbility = 5;
 
-    //private WaitForSeconds _waitForSecondsWorkTimeAbility; //Возможно удалить за ненадобностью.
-    //private WaitForSeconds _waitForSecondsReloadTimeAbility;
-    //private WaitForSeconds _waitForSecondsPauseTimeBetweenBars;
+    private WaitForSeconds _waitForSecondsReloadTimeAbility;
+    private WaitForSeconds _waitForSecondsPauseTimeBetweenBars;
 
-    private Coroutine _abilityProcess;
-    private Coroutine _reload;
+    private ITakingDamage _enemy;
+    private bool _isBusy = false;
 
-    private bool _isReady = true;
+    public event Action StartedWork;
 
-    //private void Start()
-    //{
-    //    _waitForSecondsWorkTimeAbility = new WaitForSeconds(_workTimeAbility); //Возможно удалить за ненадобностью.
-    //    _waitForSecondsReloadTimeAbility = new WaitForSeconds(_reloadTimeAbility);
-    //    _waitForSecondsPauseTimeBetweenBars = new WaitForSeconds(_pauseTimeBetweenBars);
-    //}
+    public bool IsWorking { get; private set; } = false;
+
+    private void Start()
+    {
+        _waitForSecondsReloadTimeAbility = new WaitForSeconds(_reloadTimeAbility);
+        _waitForSecondsPauseTimeBetweenBars = new WaitForSeconds(_pauseTimeBetweenBars);
+        _detectorZone.enabled = false; //Раобраться почему не отключается внешний фон
+    }
 
     private void OnEnable()
     {
@@ -38,73 +42,40 @@ public class Vampirism : MonoBehaviour
         _inputManager.KeyHasPressed -= TryApplyAbility;
     }
 
-    //private IEnumerator StartVampirise()
-    //{
-    //    for (float t = 0; t <= _workTimeAbility; t += Time.deltaTime) //Время Работы способности 6 сек. даже если время между тактами 0.02 сек работает способность не менее 6 сек!!!
-    //                                                                  //проверить это!
-    //    {
-    //        ITakingDamage enemy = _detector.IdentifyNearestTarget();
-
-    //        if (enemy != null)
-    //        {
-    //            enemy.TakeDamage(_powerAbility);
-    //            _player.TryToAcceptLifeForce(_powerAbility);
-    //        }
-
-    //        yield return _waitForSecondsPauseTimeBetweenBars; //1 sek
-    //    }
-
-    //    yield return _waitForSecondsReloadTimeAbility;
-    //}
-
     private IEnumerator StartVampirise()
     {
-        _isReady = false;
+        int barsCount = _workTimeAbility / _pauseTimeBetweenBars;
 
-        int barsCount = _workTimeAbility / _pauseTimeBetweenBars; //считаем сколько раз за 6 секунд
-
-        for (int i = 0; i < barsCount; i++) 
+        for (int i = 0; i < barsCount; i++)
         {
-            ITakingDamage enemy = _detector.IdentifyNearestTarget();
+            _enemy = _detector.IdentifyNearestTarget();
 
-            if (enemy != null)
+            if (_enemy != null)
             {
-                enemy.TakeDamage(_powerAbility);
+                _enemy.TakeDamage(_powerAbility);
                 _player.TryToAcceptLifeForce(_powerAbility);
             }
 
-            yield return new WaitForSeconds(_pauseTimeBetweenBars);
+            yield return _waitForSecondsPauseTimeBetweenBars;
+            IsWorking = false;
         }
 
-        StartCoroutine(Reload());
-        StopVampirism();
-    }
+        _detectorZone.enabled = false; //Раобраться почему не отключается внешний фон
 
-    private IEnumerator Reload()
-    {
-        yield return new WaitForSeconds(_reloadTimeAbility);
+        yield return _waitForSecondsReloadTimeAbility;
 
-        _isReady = true;
-
-        yield break;
-    }
-
-    private void StopVampirism()
-    {
-        if (_abilityProcess == null) return;
-
-        StopCoroutine(_abilityProcess);
-        _abilityProcess = null;
+        _isBusy = false;
     }
 
     private void TryApplyAbility()
     {
-        Debug.Log("TryApplyAbility");
-
-        if (_abilityProcess == null && _isReady)
+        if (_isBusy)
         {
-            //Активировать внешний фон
-            _abilityProcess = StartCoroutine(StartVampirise());
+            _detectorZone.enabled = true; //Раобраться почему не отключается внешний фон
+            StartCoroutine(StartVampirise());
+            StartedWork?.Invoke();
+            IsWorking = true;
+            _isBusy = true;
         }
     }
 }

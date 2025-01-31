@@ -3,38 +3,73 @@ using UnityEngine;
 
 public class Detector : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer _detectorZone;
+    [SerializeField] Vampirism _vampirism;
 
     private List<Enemy> _enemys = new List<Enemy>();
+    private Enemy _enemy;
 
-    private void Start()
+    private void OnEnable()
     {
-        _detectorZone.enabled = false;
+        _vampirism.StartedWork += FindEveryoneAround;
+    }
+
+    private void OnDisable()
+    {
+        _vampirism.StartedWork -= FindEveryoneAround;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<Enemy>(out Enemy enemy))
-            _enemys.Add(enemy);
+        if (_vampirism.IsWorking)
+        {
+            if (collision.TryGetComponent<Enemy>(out Enemy enemy))
+                _enemys.Add(enemy);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<Enemy>(out Enemy enemy))
-            _enemys.Remove(enemy);
+        if (_vampirism.IsWorking)
+        {
+            if (collision.TryGetComponent<Enemy>(out Enemy enemy))
+                _enemys.Remove(enemy);
+        }
     }
+
+    //private void OnCollisionStay2D(Collider2D[] collision)
+    //{
+    //    if (true)
+    //    {
+    //        _enemys = new List<Enemy>();
+
+    //        for (int i = 0; i < collision.Length; i++)
+    //        {
+    //            if (collision[i].TryGetComponent<Enemy>(out Enemy enemy))
+    //                _enemys.Add(enemy);
+    //        }
+    //    }
+    //}
 
     public ITakingDamage IdentifyNearestTarget()
     {
-        Enemy enemy = _enemys[0]; //добавить проверку на пустоту списка чтобы эксепшен не вылетал
+        _enemy = null;
 
-        for (int i = 1; i < _enemys.Count; i++)
+        if (_enemys.Count != 0)
         {
+            _enemy = _enemys[0];
 
-            if (Vector3.Distance(enemy.transform.position, transform.position) > Vector3.Distance(_enemys[i].transform.position, transform.position))
-                enemy = _enemys[i];
+            for (int i = 1; i < _enemys.Count; i++)
+            {
+                if (Vector2.SqrMagnitude(_enemy.transform.position - transform.position) > Vector2.SqrMagnitude(_enemys[i].transform.position))
+                    _enemy = _enemys[i];
+            }
         }
 
-        return enemy;
+        return _enemy;
+    }
+
+    private void FindEveryoneAround() //Ќайти способ, обнаружени€ колизии вокруг теб€ в одном кадре
+    {
+
     }
 }

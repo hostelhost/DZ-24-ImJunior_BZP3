@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class Vampirism : MonoBehaviour
 {
-    [SerializeField] private DetectorZoneDisplay _detectorZone;
+    [SerializeField] private SpriteRenderer _detectorZoneDisplay;
     [SerializeField] private Player _player;
-    [SerializeField] private Detector _detector;
+    [SerializeField] private DetectorVampire _detector;
     [SerializeField] private InputManager _inputManager;
 
     [SerializeField] private int _workTimeAbility = 6;
@@ -29,7 +29,7 @@ public class Vampirism : MonoBehaviour
     {
         _waitForSecondsReloadTimeAbility = new WaitForSeconds(_reloadTimeAbility);
         _waitForSecondsPauseTimeBetweenBars = new WaitForSeconds(_pauseTimeBetweenBars);
-        _detectorZone.enabled = false; //Раобраться почему не отключается внешний фон
+        _detectorZoneDisplay.enabled = false; 
     }
 
     private void OnEnable()
@@ -60,7 +60,7 @@ public class Vampirism : MonoBehaviour
             IsWorking = false;
         }
 
-        _detectorZone.enabled = false; //Раобраться почему не отключается внешний фон
+        _detectorZoneDisplay.enabled = false; 
 
         yield return _waitForSecondsReloadTimeAbility;
 
@@ -71,7 +71,7 @@ public class Vampirism : MonoBehaviour
     {
         if (_isBusy)
         {
-            _detectorZone.enabled = true; //Раобраться почему не отключается внешний фон
+            _detectorZoneDisplay.enabled = true;
             StartCoroutine(StartVampirise());
             StartedWork?.Invoke();
             IsWorking = true;

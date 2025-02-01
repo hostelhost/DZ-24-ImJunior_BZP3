@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Detector : MonoBehaviour
+public class DetectorVampire : MonoBehaviour
 {
     [SerializeField] Vampirism _vampirism;
 
@@ -36,20 +36,6 @@ public class Detector : MonoBehaviour
         }
     }
 
-    //private void OnCollisionStay2D(Collider2D[] collision)
-    //{
-    //    if (true)
-    //    {
-    //        _enemys = new List<Enemy>();
-
-    //        for (int i = 0; i < collision.Length; i++)
-    //        {
-    //            if (collision[i].TryGetComponent<Enemy>(out Enemy enemy))
-    //                _enemys.Add(enemy);
-    //        }
-    //    }
-    //}
-
     public ITakingDamage IdentifyNearestTarget()
     {
         _enemy = null;
@@ -68,8 +54,12 @@ public class Detector : MonoBehaviour
         return _enemy;
     }
 
-    private void FindEveryoneAround() //Ќайти способ, обнаружени€ колизии вокруг теб€ в одном кадре
-    {
+    private Collider2D[] _colliders;
 
+    private void FindEveryoneAround() 
+    {
+        
+       // Physics2D.OverlapCircleAll(transform.position, transform.localScale.x / 2) //эта функци€ возвращает все колдайдеры которые попали внутрь этого круга.
+       // Ќужно пон€ть как сохранить этот массив коллайдеров, + потом вытащить всех энеми а затем добавить их в список.
     }
 }

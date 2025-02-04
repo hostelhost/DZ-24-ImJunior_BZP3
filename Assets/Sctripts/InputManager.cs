@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
@@ -16,7 +17,7 @@ public class InputManager : MonoBehaviour
         InputHorizontal = Input.GetAxisRaw(Horizontal);
         InputVertical = Input.GetAxisRaw(Vertical);
 
-        if (Input.GetKeyDown(KeyCode.E))
-            KeyHasPressed?.Invoke();
+        if (Input.GetKeyDown(KeyCode.E))        
+            KeyHasPressed?.Invoke();       
     }
 }

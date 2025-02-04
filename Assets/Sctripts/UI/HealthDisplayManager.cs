@@ -1,15 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthDisplayManager : MonoBehaviour
 {
     [SerializeField] private Health _health;
-    [SerializeField] private HealthTextDisplay _healthTextDisplay;
-    [SerializeField] private HealthSmoothSliderDisplay _healthSmoothSliderDisplay;
-
-    private int _maximumLifeForce;
+    private IDisplayHealth[] _displayHealths;
 
     private void Start()
     {
+        _displayHealths = GetComponents<IDisplayHealth>();
         Initialization();
     }
 
@@ -25,14 +24,17 @@ public class HealthDisplayManager : MonoBehaviour
 
     private void Initialization()
     {
-        _maximumLifeForce = _health.GetMaximumLifeForce();
-        _healthTextDisplay.Print(_health.LifeForce, _maximumLifeForce);
-        _healthSmoothSliderDisplay.Initialization(_maximumLifeForce);
+        foreach (IDisplayHealth displayHealth in _displayHealths)
+        {
+            displayHealth.Initialization(_health.GetMaximumLifeForce());
+            displayHealth.Print(_health.LifeForce);
+        }
+
     }
 
     private void Print()
     {
-        _healthTextDisplay.Print(_health.LifeForce, _maximumLifeForce);
-        _healthSmoothSliderDisplay.StartSmoothSlide(_health.LifeForce);
+        foreach (IDisplayHealth displayHealth in _displayHealths)
+            displayHealth.Print(_health.LifeForce);
     }
 }

@@ -54,12 +54,15 @@ public class DetectorVampire : MonoBehaviour
         return _enemy;
     }
 
-    private Collider2D[] _colliders;
-
-    private void FindEveryoneAround() 
+    private void FindEveryoneAround()
     {
-        
-       // Physics2D.OverlapCircleAll(transform.position, transform.localScale.x / 2) //эта функция возвращает все колдайдеры которые попали внутрь этого круга.
-       // Нужно понять как сохранить этот массив коллайдеров, + потом вытащить всех энеми а затем добавить их в список.
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, transform.localScale.x / 2);
+        _enemys = new List<Enemy>();
+
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.TryGetComponent<Enemy>(out Enemy enemy))
+                _enemys.Add(enemy);
+        }
     }
 }

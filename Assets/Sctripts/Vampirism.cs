@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Threading;
 using UnityEngine;
 
 public class Vampirism : MonoBehaviour
@@ -29,7 +28,7 @@ public class Vampirism : MonoBehaviour
     {
         _waitForSecondsReloadTimeAbility = new WaitForSeconds(_reloadTimeAbility);
         _waitForSecondsPauseTimeBetweenBars = new WaitForSeconds(_pauseTimeBetweenBars);
-        _detectorZoneDisplay.enabled = false; 
+        _detectorZoneDisplay.enabled = false;
     }
 
     private void OnEnable()
@@ -60,7 +59,7 @@ public class Vampirism : MonoBehaviour
             IsWorking = false;
         }
 
-        _detectorZoneDisplay.enabled = false; 
+        _detectorZoneDisplay.enabled = false;
 
         yield return _waitForSecondsReloadTimeAbility;
 
@@ -69,11 +68,11 @@ public class Vampirism : MonoBehaviour
 
     private void TryApplyAbility()
     {
-        if (_isBusy)
+        if (_isBusy == false)
         {
             _detectorZoneDisplay.enabled = true;
-            StartCoroutine(StartVampirise());
             StartedWork?.Invoke();
+            StartCoroutine(StartVampirise());
             IsWorking = true;
             _isBusy = true;
         }

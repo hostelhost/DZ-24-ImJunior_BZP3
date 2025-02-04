@@ -32,7 +32,7 @@ public class MoverEnemy : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, _pathTarget, _speed * Time.deltaTime);
 
-        if (Vector2.SqrMagnitude(transform.position - _pathTarget) == 0*0)
+        if (Vector2.SqrMagnitude(transform.position - _pathTarget) == 0 * 0)
             _pathTarget = TakeNextTarget();
     }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthSmoothSliderDisplay : MonoBehaviour
+public class HealthSmoothSliderDisplay : MonoBehaviour, IDisplayHealth
 {
     [SerializeField] private Slider _smoothSlider;
     [SerializeField] private float _speed = 1f;
@@ -18,15 +18,15 @@ public class HealthSmoothSliderDisplay : MonoBehaviour
         _waitForSeconds = new WaitForSeconds(_delayTime);
     }
 
-    public void StartSmoothSlide(int lifeForce)
+    public void Print(int lifeForce)
     {
         if (_coroutine != null)
             StopCoroutine(_coroutine);
 
-        _coroutine = StartCoroutine(Print(lifeForce));
+        _coroutine = StartCoroutine(SmoothSlide(lifeForce));
     }
 
-    private IEnumerator Print(int lifeForce)
+    private IEnumerator SmoothSlide(int lifeForce)
     {
         while (_smoothSlider.value != lifeForce)
         {

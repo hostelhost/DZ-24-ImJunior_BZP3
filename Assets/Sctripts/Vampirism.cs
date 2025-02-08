@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -17,12 +16,7 @@ public class Vampirism : MonoBehaviour
     private WaitForSeconds _waitForSecondsReloadTimeAbility;
     private WaitForSeconds _waitForSecondsPauseTimeBetweenBars;
 
-    private ITakingDamage _enemy;
     private bool _isBusy = false;
-
-    public event Action StartedWork;
-
-    public bool IsWorking { get; private set; } = false;
 
     private void Start()
     {
@@ -47,16 +41,13 @@ public class Vampirism : MonoBehaviour
 
         for (int i = 0; i < barsCount; i++)
         {
-            _enemy = _detector.IdentifyNearestTarget();
-
-            if (_enemy != null)
+            if (_detector.TryIdentifyNearestTarget(out Enemy enemy))
             {
-                _enemy.TakeDamage(_powerAbility);
+                enemy.TakeDamage(_powerAbility);
                 _player.TryToAcceptLifeForce(_powerAbility);
             }
 
             yield return _waitForSecondsPauseTimeBetweenBars;
-            IsWorking = false;
         }
 
         _detectorZoneDisplay.enabled = false;
@@ -71,9 +62,7 @@ public class Vampirism : MonoBehaviour
         if (_isBusy == false)
         {
             _detectorZoneDisplay.enabled = true;
-            StartedWork?.Invoke();
             StartCoroutine(StartVampirise());
-            IsWorking = true;
             _isBusy = true;
         }
     }

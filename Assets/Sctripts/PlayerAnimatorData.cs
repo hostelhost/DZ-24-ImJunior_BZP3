@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerAnimatorData : MonoBehaviour
+public class PlayerAnimatorData
 {
     private const string HorizonalAxis = "horizonalAxis";
     private const string VerticalAxis = "verticalAxis";

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Attacer : MonoBehaviour
+public class Attacker : MonoBehaviour 
 {
     [SerializeField] private int _attack = 10;
     [SerializeField] private float _timeInterval = 1f;

@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour, ITakingDamage
     {
         if (_health.TryShortenHealth(damage))
         {
-            if (IsAlive())
+            if (IsAlive() || _health == null)
                 DeleteObject();
         }
     }

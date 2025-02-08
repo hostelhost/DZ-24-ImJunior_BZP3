@@ -3,9 +3,10 @@ using UnityEngine;
 public class MoverPlayer : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
-    [SerializeField] private PlayerAnimatorData _playerAnimatorData;
     [SerializeField] private InputManager _inputManager;
     [SerializeField] private float _speed = 5.0f;
+
+    private PlayerAnimatorData _animatorData = new PlayerAnimatorData();
 
     private void Update()
     {
@@ -16,7 +17,7 @@ public class MoverPlayer : MonoBehaviour
 
     private void ManageAnimator()
     {
-        _animator.SetFloat(_playerAnimatorData.HorizonalAxisID, _inputManager.InputHorizontal);
-        _animator.SetFloat(_playerAnimatorData.VerticalAxisID, _inputManager.InputVertical);
+        _animator.SetFloat(_animatorData.HorizonalAxisID, _inputManager.InputHorizontal);
+        _animator.SetFloat(_animatorData.VerticalAxisID, _inputManager.InputVertical);
     }
 }

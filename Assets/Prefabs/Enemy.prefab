@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 449781541027626839}
   - component: {fileID: 2058518249008680243}
   - component: {fileID: 6030391625976570106}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,6 +147,8 @@ MonoBehaviour:
   - {fileID: 0}
   _speed: 3
   _detector: {fileID: 5992664787153780102}
+  _animator: {fileID: 2804120866999593406}
+  _targetReachMaxDistanse: 0.1
 --- !u!61 &7712233580489765066
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -244,7 +246,7 @@ GameObject:
   - component: {fileID: 2593449790174650977}
   - component: {fileID: 5992664787153780102}
   - component: {fileID: 7045279337845504842}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +376,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3536951012239837077}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: UiTarget
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}

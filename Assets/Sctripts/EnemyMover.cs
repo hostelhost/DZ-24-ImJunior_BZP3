@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class EnemyMover : MonoBehaviour
@@ -80,14 +78,17 @@ public class EnemyMover : MonoBehaviour
 
     private Vector2 CorrectorDirection(Vector2 direction)
     {
-        float coordinateX = direction.x;
-        float coordinateY = direction.y;
-        Math.Round(coordinateX);
-        Math.Round(coordinateY);
+        double coordinateX = direction.x;
+        double coordinateY = direction.y;
 
-        direction = new Vector2(coordinateX, coordinateY); 
+        coordinateX = Math.Round(coordinateX);
+        coordinateY = Math.Round(coordinateY);
 
-        // ÏĞÎÂÅĞÈÒÜ ÄÅÁÀÃÎÌ ×ÒÎ ÍÅ ÒÀÊ! Ïğîâåğèòü Â ÊÀÊÓŞ ÑÒÎĞÎÍÓ ÊÎĞĞÅÊÒÈĞÓÅÒÑß! !!! !
+        Debug.Log(coordinateY +" = coordinateY");  //Òóò âñåãäà 0  Íóæíî ğàçîáğàòüñÿ. 
+        Debug.Log(coordinateX + " = coordinateX");
+
+        //direction = new Vector2(coordinateX, coordinateY); 
+
         return direction;
     }
 }

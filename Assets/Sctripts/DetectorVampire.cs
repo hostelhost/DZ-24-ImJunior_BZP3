@@ -23,7 +23,7 @@ public class DetectorVampire : MonoBehaviour
 
     private float GetRadius()
     {
-        int dividerRadius = 2;            
-        return transform.localScale.x / dividerRadius;   
+        int diameterDivider = 2;            
+        return transform.localScale.x / diameterDivider;   
     }
 }

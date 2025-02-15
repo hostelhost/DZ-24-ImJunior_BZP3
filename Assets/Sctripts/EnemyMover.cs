@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +16,6 @@ public class EnemyMover : MonoBehaviour
 
     private void Start()
     {
-        _animations.Add(Vector2.zero, _animatorData.Idle);
         _animations.Add(Vector2.right, _animatorData.RightWalk);
         _animations.Add(Vector2.left, _animatorData.LeftWalk);
         _animations.Add(Vector2.up, _animatorData.UpWalk);
@@ -41,7 +39,7 @@ public class EnemyMover : MonoBehaviour
         else
             direction = FollowGlobalTarget();
 
-        ManageAnimator(CorrectorDirection(direction));
+        ManageAnimator(CorrectorDirectionForAnimatior(direction));
     }
 
     private Vector2 TakeNextTarget()
@@ -76,20 +74,12 @@ public class EnemyMover : MonoBehaviour
             _animator.Play(value);
     }
 
-    private Vector2 CorrectorDirection(Vector2 direction)
+    private Vector2 CorrectorDirectionForAnimatior(Vector2 direction)
     {
-        double coordinateX = direction.x;
-        double coordinateY = direction.y;
-
-        coordinateX = Math.Round(coordinateX);
-        coordinateY = Math.Round(coordinateY);
-
-        Debug.Log(coordinateY +" = coordinateY");  //Тут всегда 0  Нужно разобраться. 
-        Debug.Log(coordinateX + " = coordinateX");
-
-        //direction = new Vector2(coordinateX, coordinateY); 
-
-        return direction;
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+            return direction.x > 0 ? Vector2.right : Vector2.left;
+        else 
+            return direction.y > 0 ? Vector2.up : Vector2.down;
     }
 }
 

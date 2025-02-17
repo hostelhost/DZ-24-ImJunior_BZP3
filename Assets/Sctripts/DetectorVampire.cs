@@ -15,7 +15,7 @@ public class DetectorVampire : MonoBehaviour
         if (count == 0)
             return false;
 
-        if (_colliders[0].TryGetComponent(out enemy))        
+        if (_colliders[0].TryGetComponent(out enemy))                
             return enemy;
 
         return false;
@@ -23,7 +23,8 @@ public class DetectorVampire : MonoBehaviour
 
     private float GetRadius()
     {
-        int diameterDivider = 2;            
+        int diameterDivider = 2;           
+        
         return transform.localScale.x / diameterDivider;   
     }
 }

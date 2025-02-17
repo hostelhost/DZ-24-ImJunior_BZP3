@@ -1153,6 +1153,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &577353571 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8410990645413649760, guid: 901a54145fa4bda4789561df2ae5be05, type: 3}
+  m_PrefabInstance: {fileID: 8704976585436403549}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &577353573 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9216253670437487849, guid: 901a54145fa4bda4789561df2ae5be05, type: 3}
+  m_PrefabInstance: {fileID: 8704976585436403549}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a5174c796252442877ec44d31e5bf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &664065764
 GameObject:
   m_ObjectHideFlags: 0
@@ -13554,14 +13570,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 428322760583269323, guid: 901a54145fa4bda4789561df2ae5be05, type: 3}
-      propertyPath: _animatorData
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1222803788100138669, guid: 901a54145fa4bda4789561df2ae5be05, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4021418742132521135, guid: 901a54145fa4bda4789561df2ae5be05, type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 577353571}
+    - target: {fileID: 4021418742132521135, guid: 901a54145fa4bda4789561df2ae5be05, type: 3}
+      propertyPath: _inputReader
+      value: 
+      objectReference: {fileID: 577353573}
     - target: {fileID: 4227534438580092251, guid: 901a54145fa4bda4789561df2ae5be05, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.63
@@ -13606,9 +13626,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 158934010143595422, guid: 901a54145fa4bda4789561df2ae5be05, type: 3}
-    - {fileID: 9168860618653173586, guid: 901a54145fa4bda4789561df2ae5be05, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

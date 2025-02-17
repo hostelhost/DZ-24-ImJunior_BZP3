@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Bag : MonoBehaviour
 {
-    public event Action NumberCoinHasChanged;
+    public event Action ValueChanged;
 
     public int CoinCount { get; private set; }
 
@@ -11,6 +11,6 @@ public class Bag : MonoBehaviour
     {
         CoinCount += coin;
 
-        NumberCoinHasChanged?.Invoke();
+        ValueChanged?.Invoke();
     }
 }

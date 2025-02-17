@@ -12,7 +12,7 @@ public class EnemyDetector : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.GetComponent<Player>())
+        if (collision.TryGetComponent<Player>(out Player prosecuted))
             _globalTarget = null;        
     }
 

@@ -147,7 +147,6 @@ MonoBehaviour:
   - {fileID: 0}
   _speed: 3
   _detector: {fileID: 5992664787153780102}
-  _animator: {fileID: 2804120866999593406}
   _targetReachMaxDistanse: 0.1
 --- !u!61 &7712233580489765066
 BoxCollider2D:
@@ -221,6 +220,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 6030391625976570106}
+  _animator: {fileID: 2804120866999593406}
+  _enemyMover: {fileID: 862474418320730397}
 --- !u!114 &6030391625976570106
 MonoBehaviour:
   m_ObjectHideFlags: 0

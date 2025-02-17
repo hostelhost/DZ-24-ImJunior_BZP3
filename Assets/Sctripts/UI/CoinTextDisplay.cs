@@ -8,12 +8,12 @@ public class CoinTextDisplay : MonoBehaviour
 
     private void OnEnable()
     {
-        _bag.NumberCoinHasChanged += Print;
+        _bag.ValueChanged += Print;
     }
 
     private void OnDisable()
     {
-        _bag.NumberCoinHasChanged -= Print;
+        _bag.ValueChanged -= Print;
     }
 
     public void Print()

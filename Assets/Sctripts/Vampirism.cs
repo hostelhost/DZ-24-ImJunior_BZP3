@@ -6,7 +6,7 @@ public class Vampirism : MonoBehaviour
     [SerializeField] private SpriteRenderer _detectorZoneDisplay;
     [SerializeField] private Player _player;
     [SerializeField] private DetectorVampire _detector;
-    [SerializeField] private InputManager _inputManager;
+    [SerializeField] private InputReader _inputReader;
 
     [SerializeField] private int _workTimeAbility = 6;
     [SerializeField] private int _reloadTimeAbility = 4;
@@ -27,12 +27,12 @@ public class Vampirism : MonoBehaviour
 
     private void OnEnable()
     {
-        _inputManager.KeyHasPressed += TryApplyAbility;
+        _inputReader.KeyHasPressed += TryApplyAbility;
     }
 
     private void OnDisable()
     {
-        _inputManager.KeyHasPressed -= TryApplyAbility;
+        _inputReader.KeyHasPressed -= TryApplyAbility;
     }
 
     private IEnumerator StartVampirise()

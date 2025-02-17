@@ -7,7 +7,7 @@ public class Health : MonoBehaviour
 
     public event Action HealthHasChanged;
 
-    public int LifeForce { get; set; }
+    public int LifeForce { get; private set; }
 
     private void Awake()
     {
@@ -20,6 +20,7 @@ public class Health : MonoBehaviour
         {
             LifeForce -= damage;
             HealthHasChanged?.Invoke();
+
             return true;
         }
 

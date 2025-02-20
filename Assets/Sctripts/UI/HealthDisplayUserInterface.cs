@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthDisplayManager : MonoBehaviour
+public class HealthDisplayUserInterface : MonoBehaviour
 {
     [SerializeField] private Health _health;
     private IDisplayHealth[] _displayHealths;
@@ -29,7 +28,6 @@ public class HealthDisplayManager : MonoBehaviour
             displayHealth.Initialization(_health.GetMaximumLifeForce());
             displayHealth.Print(_health.LifeForce);
         }
-
     }
 
     private void Print()

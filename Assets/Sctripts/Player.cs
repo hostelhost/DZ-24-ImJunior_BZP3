@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour, ITakingDamage
+public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] private Health _health;
     [SerializeField] private Bag _bag;
-    [SerializeField] private Animator _animator;
-    [SerializeField] private InputReader _inputReader;
+    //[SerializeField] private Animator _animator;
+    //[SerializeField] private InputReader _inputReader;
 
-    private PlayerAnimatorData _animatorData = new PlayerAnimatorData();
+    //private PlayerAnimatorData _animatorData = new PlayerAnimatorData();
 
-    private void Update()
-    {
-        ManageAnimator();
-    }
+    //private void Update()
+    //{
+    //    ManageAnimator();
+    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -37,11 +37,11 @@ public class Player : MonoBehaviour, ITakingDamage
         }
     }
 
-    private void ManageAnimator()
-    {
-        _animator.SetFloat(_animatorData.HorizonalAxisID, _inputReader.InputHorizontal);
-        _animator.SetFloat(_animatorData.VerticalAxisID, _inputReader.InputVertical);
-    }
+    //private void ManageAnimator()
+    //{
+    //    _animator.SetFloat(_animatorData.HorizonalAxisID, _inputReader.InputHorizontal);
+    //    _animator.SetFloat(_animatorData.VerticalAxisID, _inputReader.InputVertical);
+    //}
 
     private void TakeCoin(int coin) =>   
         _bag.TakeCoin(coin);

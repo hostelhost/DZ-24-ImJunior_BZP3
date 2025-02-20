@@ -7,6 +7,7 @@ public class Gold : MonoBehaviour, ICollectable
     public int Execute()
     {
         Destroy(gameObject);
+
         return _quantity;
     }
 }

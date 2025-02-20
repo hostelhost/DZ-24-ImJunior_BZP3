@@ -6,7 +6,7 @@ public class Attacker : MonoBehaviour
 {
     [SerializeField] private int _attack = 10;
     [SerializeField] private float _timeInterval = 1f;
-    private Dictionary<ITakingDamage, Coroutine> _activeCoroutines = new Dictionary<ITakingDamage, Coroutine>();
+    private Dictionary<IDamageable, Coroutine> _activeCoroutines = new Dictionary<IDamageable, Coroutine>();
 
     private Coroutine _coroutine;
     private WaitForSeconds _waitForSeconds;
@@ -18,7 +18,7 @@ public class Attacker : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out ITakingDamage iTakingDamage))
+        if (collision.TryGetComponent(out IDamageable iTakingDamage))
         {
             if (!_activeCoroutines.ContainsKey(iTakingDamage))
             {
@@ -30,7 +30,7 @@ public class Attacker : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out ITakingDamage iTakingDamage))
+        if (collision.TryGetComponent(out IDamageable iTakingDamage))
         {
             if (_activeCoroutines.TryGetValue(iTakingDamage, out var coroutine))
             {
@@ -40,7 +40,7 @@ public class Attacker : MonoBehaviour
         }
     }
 
-    private IEnumerator AttackEveryTimeInterval(ITakingDamage attacked)
+    private IEnumerator AttackEveryTimeInterval(IDamageable attacked)
     {
         while (attacked != null)
         {

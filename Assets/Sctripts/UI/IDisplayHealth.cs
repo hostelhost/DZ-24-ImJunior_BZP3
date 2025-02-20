@@ -1,4 +1,3 @@
-
 public interface IDisplayHealth
 {
     void Initialization(int maximumLifeForce) { }

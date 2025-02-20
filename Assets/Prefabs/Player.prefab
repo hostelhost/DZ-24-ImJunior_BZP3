@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 6331729539251688732}
   - component: {fileID: 8469775277521637525}
   - component: {fileID: 9216253670437487849}
-  - component: {fileID: 4596669343254814876}
+  - component: {fileID: 1082215630094561912}
   m_Layer: 0
   m_Name: PlayerLogic
   m_TagString: Untagged
@@ -406,7 +406,7 @@ MonoBehaviour:
   _detectorZoneDisplay: {fileID: 302309678078146413}
   _player: {fileID: 4021418742132521135}
   _detector: {fileID: 4164206351543290525}
-  _inputReader: {fileID: 4596669343254814876}
+  _inputReader: {fileID: 9216253670437487849}
   _workTimeAbility: 6
   _reloadTimeAbility: 4
   _pauseTimeBetweenBars: 1
@@ -423,7 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1a5174c796252442877ec44d31e5bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4596669343254814876
+--- !u!114 &1082215630094561912
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -432,9 +432,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 754898189053261142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a5174c796252442877ec44d31e5bf9, type: 3}
+  m_Script: {fileID: 11500000, guid: 85f43aa428bc02f4095a6c3dff161b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 8410990645413649760}
+  _inputReader: {fileID: 9216253670437487849}
 --- !u!1 &1637340113447309519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,8 +1054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9566355832d85d34eaf570141b41fb0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 8410990645413649760}
-  _inputReader: {fileID: 4596669343254814876}
+  _inputReader: {fileID: 9216253670437487849}
   _speed: 5
 --- !u!1 &6448100225209542651
 GameObject:

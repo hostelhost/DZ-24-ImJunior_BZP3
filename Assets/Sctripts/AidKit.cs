@@ -7,6 +7,7 @@ public class AidKit : MonoBehaviour, ICollectable
     public int Execute()
     {
         Destroy(gameObject);
+
         return _lifeForce;
     }
 }
